@@ -1,0 +1,180 @@
+@font-face {
+    font-family: 'NeueMontreal-Bold';
+    src: url('fonts/NeueMontreal/NeueMontreal-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NeueMontreal-Light';
+    src: url('fonts/NeueMontreal/NeueMontreal-Light.otf') format('opentype');
+    font-weight: light;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "NeueMontreal";
+    src: url("fonts/NeueMontreal/NeueMontreal-Regular.otf") format('opentype');
+    font-weight: normal;
+    font-display: swap;
+}
+
+:root {
+    --bg-dirty-white: #EDE9E8;
+  }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.bg-container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(60deg, black, var(--bg-dirty-white, #EDE9E8));
+    background-size: 200% 200%;
+    animation: gradientAnimation 10s ease-in-out infinite;
+    padding: 7vw;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid white;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%; 
+}
+
+.mainbody {
+    display: flex;
+    justify-content: space-between;
+}
+
+header {
+    padding: 1rem
+}
+
+.images {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 40%;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+h1:has(+ p) {
+    font-family: 'NeueMontreal-Light', Arial, sans-serif;
+    font-size: 4.5rem;
+    line-height: 3.5rem;
+    color: white;
+    padding: 0.5rem 0rem 0.5rem 0rem;
+}
+
+h2 {
+    font-family: 'NeueMontreal-Light', Arial, sans-serif;
+    font-size: 4.5rem;
+    line-height: 3.5rem;
+    color: white;
+    padding: 0.5rem 0rem 0.5rem 0rem;
+    text-align: right;
+}
+
+h3 {
+    font-family: 'NeueMontreal', Arial, sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    color: white;
+    padding:  0.5rem 0rem 0.5rem 0rem;
+
+}
+
+header p {
+    font-family: 'NeueMontreal-Light', Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: lighter;
+    color: white;
+    padding: 0.5rem 0rem 0.5rem 0rem
+}
+
+p {
+    font-family: 'NeueMontreal', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: lighter;
+    color: white;
+}
+
+ul {
+    font-family: 'NeueMontreal', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: lighter;
+    color: white;
+    padding-inline-start: 2rem;
+}
+
+nav {
+    align-self: flex-start;
+}
+
+picture {
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 90%;
+    }
+    50% {
+        background-position: 50% 50%;
+    }
+    100% {
+        background-position: 0% 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainbody {
+      flex-direction: column;
+    }
+
+    .images {
+        width: 100%
+    }
+
+    .info {
+        width: 100%
+    }
+
+    h2 {
+        text-align: left;
+    }
+}
+
+@media (max-width: 1024px) {
+    h2 {
+        font-size: 3rem;
+        line-height: 2.5rem;
+    }
+}
