@@ -8,7 +8,7 @@
 @font-face {
     font-family: 'NeueMontreal-Light';
     src: url('fonts/NeueMontreal/NeueMontreal-Light.otf') format('opentype');
-    font-weight: light;
+    font-weight: 300;
     font-display: swap;
 }
 
@@ -64,6 +64,8 @@ header {
 .images {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    row-gap: 2rem;
     width: 60%;
     padding: 1rem;
     box-sizing: border-box;
@@ -137,7 +139,7 @@ picture {
 }
 
 img {
-    width: 50%;
+    width: 70%;
     height: auto;
     margin: 0 auto;
 }
@@ -155,25 +157,24 @@ img {
 }
 
 @media (max-width: 768px) {
-    .mainbody {
-      flex-direction: column;
-    }
+    
+}
 
+@media (max-width: 1024px) {
+    .mainbody {
+        flex-direction: column;
+      }
+  
     .images {
-        width: 100%
+        width: 100%;
     }
 
     .info {
-        width: 100%
+        width: 100%;
     }
 
     h2 {
         text-align: left;
-    }
-}
-
-@media (max-width: 1024px) {
-    h2 {
         font-size: 3rem;
         line-height: 2.5rem;
     }
