@@ -20,7 +20,8 @@
 }
 
 :root {
-    --bg-dirty-white: #EDE9E8;
+    --bg-color1: #EDE9E8;
+    --bg-color2: black;
   }
 
 * {
@@ -36,7 +37,7 @@
     justify-content: center;
     height: 100%;
     width: 100%;
-    background: linear-gradient(60deg, black, var(--bg-dirty-white, #EDE9E8));
+    background: linear-gradient(60deg, var(--bg-color2, black), var(--bg-color1, #EDE9E8));
     background-size: 200% 200%;
     animation: gradientAnimation 10s ease-in-out infinite;
     padding: 7vw;
@@ -46,7 +47,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 2px solid white;
+    border: 2px solid var(--bg-color1, #EDE9E8);
     box-sizing: border-box;
     height: 100%;
     width: 100%; 
@@ -80,11 +81,17 @@ header {
     box-sizing: border-box;
 }
 
+.contact_form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
 h1:has(+ p) {
     font-family: 'NeueMontreal-Light', Arial, sans-serif;
     font-size: 4.5rem;
     line-height: 3.5rem;
-    color: white;
+    color: var(--bg-color1, #EDE9E8);
     padding: 0.5rem 0rem 0.5rem 0rem;
 }
 
@@ -92,7 +99,7 @@ h2 {
     font-family: 'NeueMontreal-Light', Arial, sans-serif;
     font-size: 4.5rem;
     line-height: 3.5rem;
-    color: white;
+    color: var(--bg-color1, #EDE9E8);
     padding: 0.5rem 0rem 0.5rem 0rem;
     text-align: right;
 }
@@ -101,16 +108,16 @@ h3 {
     font-family: 'NeueMontreal', Arial, sans-serif;
     font-size: 1.2rem;
     line-height: 1.2rem;
-    color: white;
+    color: var(--bg-color1, #EDE9E8);
     padding:  0.5rem 0rem 0.5rem 0rem;
 
 }
 
 header p {
     font-family: 'NeueMontreal-Light', Arial, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: lighter;
-    color: white;
+    color: var(--bg-color1, #EDE9E8);
     padding: 0.5rem 0rem 0.5rem 0rem
 }
 
@@ -118,14 +125,14 @@ p {
     font-family: 'NeueMontreal', Arial, sans-serif;
     font-size: 1rem;
     font-weight: lighter;
-    color: white;
+    color: var(--bg-color1, #EDE9E8);
 }
 
 ul {
     font-family: 'NeueMontreal', Arial, sans-serif;
     font-size: 1rem;
     font-weight: lighter;
-    color: white;
+    color: var(--bg-color1, #EDE9E8);
     padding-inline-start: 2rem;
 }
 
@@ -142,6 +149,104 @@ img {
     width: 70%;
     height: auto;
     margin: 0 auto;
+}
+
+form {
+    font-family: 'NeueMontreal', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: lighter;
+    color: var(--bg-color1, #EDE9E8);
+    width: 20rem
+}
+
+label {
+    margin-bottom: 5px;
+    align-self: center;
+}
+
+input, textarea {
+    padding: 8px;
+    box-sizing: border-box; 
+    width: 100%; 
+}
+
+input[type="submit"] {
+    background-color: var(--bg-color2, black);
+    color: var(--bg-color1, #EDE9E8); 
+    font-family: 'NeueMontreal', Arial, sans-serif;
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 5px;
+}
+
+input[type="submit"]:hover {
+    background-color: #A9A9A9; 
+}
+
+input:user-invalid {
+    border: 2px solid red;
+}
+
+textarea:user-invalid {
+    border: 2px solid red;
+}
+
+.error {
+    width: 100%;
+    padding: 0;
+
+    font-size: 80%;
+    color: var(--bg-color1, #EDE9E8);
+    background-color: #900;
+    border-radius: 0 0 5px 5px;
+
+    box-sizing: border-box;
+}
+
+.error.active {
+    padding: 0.3em;
+}
+
+.chillin {
+    color: rgb(111, 209, 136);
+}
+
+.warn {
+    color: rgb(255, 199, 95);
+}
+
+.nearlimit {
+    color: rgb(252, 110, 110);
+}
+
+.toggle-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-color2, black);
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.toggle-label {
+    margin-right: 10px;
+    font-family: 'NeueMontreal', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: lighter;
+    color: var(--bg-color1, #EDE9E8);
+}
+
+.toggle-btn {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    outline: none;
 }
 
 @keyframes gradientAnimation {

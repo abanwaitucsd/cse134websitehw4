@@ -6,6 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Armaan Banwait Portfolio</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <noscript>
+        <style>
+            #tcont {display:none;}
+        </style>
+    </noscript>
+    <script>
+        window.onload = function() {
+            const root = document.documentElement;
+            if(localStorage.getItem("mode") == null) {
+                localStorage.setItem("mode", "dark");
+            }
+            else if(localStorage.getItem("mode") == "light") {
+                const bgColor1 = getComputedStyle(root).getPropertyValue('--bg-color1');
+                const bgColor2 = getComputedStyle(root).getPropertyValue('--bg-color2');
+
+                root.style.setProperty('--bg-color1', bgColor2);
+                root.style.setProperty('--bg-color2', bgColor1);
+            }
+        };
+    </script>
+
 </head>
 
 <body>
@@ -117,16 +138,188 @@
                 </div>
             </div>
         </div>
-        <nav>
-            <aside>
-                <a href=https://github.com/abanwaitucsd target="_blank">GitHub</a>
-            </aside>
+        <div class="contact_form">
+            <nav>
+                <aside>
+                    <a href=https://github.com/abanwaitucsd target="_blank">GitHub</a>
+                </aside>
+                
+                <footer>
+                    <p>armaan.banwait@gmail.com</p>
+                </footer>
+
+                <form action="https://httpbin.org/post" method="post" novalidate>
+                    <label for="name">Name:</label>
+                    <br>
+                    <input type="text" id="name" name="name" pattern="^[a-zA-Z\s]*$" required>
+                    <span class="error" aria-live="polite"></span>
+                    <br>
             
-            <footer>
-                <p>armaan.banwait@gmail.com</p>
-            </footer>
-        </nav>
+                    <label for="email">Email:</label>
+                    <br>
+                    <input type="email" id="email" name="email" minlength="11" required>
+                    <span class="error" aria-live="polite"></span>
+                    <br>
+            
+                    <label for="comments">Comments:</label>
+                    <br>
+                    <textarea id="comments" name="comments" rows="4" minlength="10" maxlength="200" required></textarea>
+                    <span class="error" aria-live="polite"></span>
+                    <div class="chillin" id="commentsInfoMessage"></div>
+                    <input type="hidden" id="possible_bot" name="possible_bot" value="true">
+            
+                    <br>
+            
+                    <input type="submit" value="Submit">
+                    <input type="hidden" id="formErrors" name="form-errors" value="">
+
+                    <output for="name" class="error"></output>
+                    <output for="name" class="info"></output>
+                    <output for="email" class="error"></output>
+                    <output for="email" class="info"></output>
+                    <output for="comments" class="error"></output>
+                    <output for="comments" class="info"></output>
+                </form>        
+            </nav>
+            <div class="toggle-container" id="tcont">
+                <span class="toggle-label">Toggle Mode:</span>
+                <button class="toggle-btn" onclick="toggleMode()">🌞🌜</button>
+            </div>
+        </div>
     </div>
+
+    <script>
+        const form = document.querySelector("form");
+        const name = document.getElementById("name");
+        const nameError = document.querySelector("#name + span.error");
+        const email = document.getElementById("email");
+        const emailError = document.querySelector("#email + span.error");
+        const comments = document.getElementById("comments");
+        const commentsError = document.querySelector("#comments + span.error");
+
+        name.addEventListener("input", (event) => {
+
+            if (name.validity.valid) {
+                nameError.textContent = "";
+                nameError.className = "error";
+            } else {
+                showNameError();
+            }
+        });
+
+        email.addEventListener("input", (event) => {
+
+            if (email.validity.valid) {
+                emailError.textContent = "";
+                emailError.className = "error";
+            } else {
+                showEmailError();
+            }
+        });
+
+        let maxChars = 200;
+        comments.addEventListener("input", (event) => {
+            if (comments.validity.valid) {
+                commentsError.textContent = "";
+                commentsError.className = "error";
+            } else {
+                showCommentsError();
+            }
+            
+            let remainingChars = maxChars - comments.value.length;
+            let infoMessageElement = document.getElementById("commentsInfoMessage");
+
+            infoMessageElement.textContent = remainingChars + " characters remaining";
+
+            if (remainingChars <= 50 && remainingChars > 10) {
+                infoMessageElement.className = "warn";
+            } else if (remainingChars <= 10) {
+                infoMessageElement.className = "nearlimit";
+            } else {
+                infoMessageElement.className = "chillin";
+            }
+            
+        });
+
+        let formErrors = [];
+
+        form.addEventListener("submit", (event) => {
+            if (!name.validity.valid) {
+                showNameError();
+                formErrors.push({ field: 'name', error_input: name.value});
+            }
+            if (!email.validity.valid) {
+                showEmailError();
+                formErrors.push({ field: 'email', error_input: email.value});
+            }
+            if (!comments.validity.valid) {
+                showCommentsError();
+                formErrors.push({ field: 'comments', error_input: comments.value});
+            }
+
+            document.getElementById('formErrors').value = JSON.stringify(formErrors);
+        });
+
+        function showNameError() {
+            if (name.validity.valueMissing) {
+                nameError.textContent = "You need to enter a name.";
+            } else if (name.validity.patternMismatch) {
+                name.value = name.value.replace(/[^a-zA-Z\s]/g, '');
+                nameError.textContent = "Entered value has illegal character(s)";
+            }
+
+            nameError.className = "error active";
+            setTimeout(function () {
+                    nameError.textContent = '';
+                    nameError.className = "error";
+            }, 3000);
+        }
+
+        function showEmailError() {
+            if (email.validity.valueMissing) {
+                emailError.textContent = "You need to enter an email address.";
+            } else if (email.validity.typeMismatch) {
+                emailError.textContent = "Entered value needs to be an email address.";
+            } else if (email.validity.tooShort) {
+                emailError.textContent = `Email should be at least ${email.minLength} characters; you entered ${email.value.length}.`;
+            }
+            emailError.className = "error active";
+            setTimeout(function () {
+                    emailError.textContent = '';
+                    emailError.className = "error";
+            }, 3000);
+        }
+
+        function showCommentsError() {
+            if (comments.validity.valueMissing) {
+                commentsError.textContent = "You need to enter a comment.";
+            } else if (comments.validity.tooShort) {
+                commentsError.textContent = `Comment should be at least ${comments.minLength} characters; you entered ${comments.value.length}.`;
+            }
+
+            commentsError.className = "error active";
+            setTimeout(function () {
+                    commentsError.textContent = '';
+                    commentsError.className = "error";
+            }, 3000);
+        }
+
+        function toggleMode() {
+            const root = document.documentElement;
+            const bgColor1 = getComputedStyle(root).getPropertyValue('--bg-color1');
+            const bgColor2 = getComputedStyle(root).getPropertyValue('--bg-color2');
+
+            root.style.setProperty('--bg-color1', bgColor2);
+            root.style.setProperty('--bg-color2', bgColor1);
+
+            if(localStorage.getItem("mode") == "dark") {
+                localStorage.setItem("mode", "light") 
+            }
+            else if(localStorage.getItem("mode") == "light") {
+                localStorage.setItem("mode", "dark") 
+            }
+        }
+    </script>
 </body>
 
 </html>
